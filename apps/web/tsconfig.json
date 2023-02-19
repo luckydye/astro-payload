@@ -1,0 +1,15 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "noEmit": true,
+    // "allowImportingTsExtensions": true,
+    "noImplicitAny": false,
+    "useDefineForClassFields": false,
+    "noImplicitReturns": false,
+    "jsx": "preserve",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  }
+}

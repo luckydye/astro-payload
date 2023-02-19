@@ -1,0 +1,115 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <div class="header container">
+        <div class="logo">Logo</div>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer>
+      <div class="container content">
+        <ul class="links">
+          <li><button data-overlay="imprint">Imprint</button></li>
+          <li><button data-overlay="privacy">Privacy</button></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  html {
+    font-family: Helvetica, sans-serif;
+    font-size: 62.5%;
+  }
+  a[href] {
+    color: inherit;
+  }
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: 3rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin: 10px 0;
+  }
+  h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 0;
+  }
+  p {
+    line-height: 1.2;
+    margin: 0.4rem 0;
+  }
+  body {
+    background: #000;
+    color: #e7e7e7;
+    margin: 0px;
+    font-size: 1.6rem;
+  }
+  button {
+    border: none;
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    cursor: pointer;
+  }
+  .header {
+    padding: 20px;
+  }
+  .container {
+    margin: auto;
+    box-sizing: border-box;
+    max-width: 900px;
+  }
+  .content {
+    padding: 0 20px;
+  }
+  footer {
+    margin: 40px 0px;
+  }
+  .logos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin: 40px 0 100px 0;
+    justify-items: center;
+    align-items: center;
+  }
+  .logos img {
+    max-width: 100%;
+    height: 50px;
+  }
+  .links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    grid-gap: 20px;
+  }
+  .links button:hover {
+    text-decoration: underline;
+  }
+</style>

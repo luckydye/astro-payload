@@ -1,0 +1,15 @@
+{
+  "name": "astro-payload",
+  "version": "1.0.0",
+  "scripts": {
+    "predev": "docker-compose up -d",
+    "dev": "dotenv -e .env -- pnpm run -r --parallel dev",
+    "web": "pnpm --filter=web -- "
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv-cli": "^7.0.0"
+  }
+}

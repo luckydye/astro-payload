@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RichText from "../components/RichText.astro";
+// import payload from "payload";
+
+// const content = await payload.findGlobal({
+//   slug: "content",
+// });
+
+const content = {};
+---
+
+<Layout>
+  <main class="container">
+    <div class="content">
+      <RichText content={content.homeCopy} />
+    </div>
+  </main>
+</Layout>
