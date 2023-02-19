@@ -1,4 +1,4 @@
 {
-  "watch": ["./server.ts", "src"],
+  "watch": ["./server.ts", "src", "../../packages/cms/src"],
   "ext": "js, json, ts, astro"
 }

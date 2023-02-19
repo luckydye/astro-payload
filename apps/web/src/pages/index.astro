@@ -1,19 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import RichText from "../components/RichText.astro";
-// import payload from "payload";
+import payload from "payload";
 
-// const content = await payload.findGlobal({
-//   slug: "content",
-// });
+const ca = await payload.find({
+  collection: "pages",
+});
 
-const content = {};
+const page = ca.docs.find((p) => {
+  return p.slug === "/";
+});
+
+const title = page.title;
+const layout = page.layout;
 ---
 
-<Layout>
+<Layout title={title}>
   <main class="container">
     <div class="content">
-      <RichText content={content.homeCopy} />
+      <RichText content={layout[0].richText} />
     </div>
   </main>
 </Layout>

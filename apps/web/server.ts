@@ -20,12 +20,12 @@ export function start(manifest) {
       const response = await astro.render(request);
       return res.status(response.status).send(await response.text());
     }
-    request.next();
+    request.next && request.next();
   });
 
   // Add your own express routes here
 
-  app.use("/", express.static(path.resolve("./dist/public")));
+  app.use("/", express.static(path.resolve("./dist/client")));
 
   const PORT = process.env.PORT || 3000;
   server.listen(PORT);
