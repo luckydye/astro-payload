@@ -1,1 +1,1 @@
-# A Astro app with Payload CMS
+# Astro app with Payload CMS
