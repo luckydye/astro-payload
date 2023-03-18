@@ -16,15 +16,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${DB_ROOT_USER}"
       MONGO_INITDB_ROOT_PASSWORD: "${DB_ROOT_PASS}"
-      MONGO_INITDB_DATABASE: "${DB_NAME}"
+      MONGO_INITDB_ROOT_DATABASE: "${DB_NAME}"
     ports:
-      - "${DB_PORT}:27017"
-    command:
-      - --storageEngine=wiredTiger
+      - "27017:27017"
     volumes:
       - ./data/db:/data/db
-    logging:
-      driver: none
 
 networks:
   default:

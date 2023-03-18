@@ -1,34 +1,32 @@
 import path from "path";
 import { defineConfig } from "astro/config";
+import { startup } from "./server.js";
 
 function payload() {
-  return {
-    name: "astro-payload",
-    hooks: {
-      "astro:config:done": ({ setAdapter }) => {
-        setAdapter({
-          name: "astro-payload",
-          serverEntrypoint: path.resolve("./server.ts"),
-        });
-      },
-    },
-  };
+	return {
+		name: "astro-payload",
+		hooks: {
+			"astro:server:setup": (astro) => {
+				startup(astro);
+			},
+			// "astro:config:done": ({ setAdapter }) => {
+			// 	setAdapter({
+			// 		name: "astro-payload",
+			// 		serverEntrypoint: path.resolve("./server.ts"),
+			// 	});
+			// },
+		},
+	};
 }
 
 export default defineConfig({
-  srcDir: "src",
-  output: "server",
-  publicDir: "public",
-  // outDir: "dist",
-  // build: {
-  //   // server: path.resolve("./dist"),
-  //   client: path.resolve("./dist/public"),
-  //   serverEntry: "dist/server.mjs",
-  // },
-  adapter: payload(),
-  vite: {
-    ssr: {
-      noExternal: ["path-to-regexp"],
-    },
-  },
+	srcDir: "src",
+	output: "server",
+	publicDir: "public",
+	adapter: payload(),
+	vite: {
+		ssr: {
+			noExternal: ["path-to-regexp"],
+		},
+	},
 });

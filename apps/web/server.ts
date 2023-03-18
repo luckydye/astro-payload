@@ -1,34 +1,32 @@
-import path from "path";
-import express, { Request, Response } from "express";
-import http from "http";
+import { resolve } from "path";
+import payload from "payload";
+import payloadConfig from "./payload.config";
 
-import { NodeApp as AstroApp } from "astro/app/node";
-import { init as initPayload } from "cms";
+export function startup(astro) {
+	const app = astro.server.middlewares;
 
-export function start(manifest) {
-  console.log("startup...");
+	console.log("dev startup...");
 
-  const astro = new AstroApp(manifest);
+	if (!process.env.PAYLOAD_CONFIG_PATH) {
+		process.env.PAYLOAD_CONFIG_PATH = resolve("../../packages/cms/payload.config.ts");
+	}
 
-  const app = express();
-  const server = http.createServer(app);
+	// Initialize Payload
+	payload.init({
+		secret: process.env.PAYLOAD_SECRET,
+		mongoURL: process.env.MONGODB_URI,
+		mongoOptions: {
+			user: process.env.DB_ROOT_USER,
+			pass: process.env.DB_ROOT_PASS,
+		},
+		express: app,
+		config: payloadConfig,
+		onInit: () => {
+			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+		},
+	});
 
-  initPayload(app);
-
-  app.use("/", async (request: Request, res: Response) => {
-    if (astro.match(request)) {
-      const response = await astro.render(request);
-      return res.status(response.status).send(await response.text());
-    }
-    request.next && request.next();
-  });
-
-  // Add your own express routes here
-
-  app.use("/", express.static(path.resolve("./dist/client")));
-
-  const PORT = process.env.PORT || 3000;
-  server.listen(PORT);
-
-  process.stdin.resume();
+	// app.use("/", (req, res) => {
+	// 	res.send("test");
+	// });
 }
