@@ -10,9 +10,9 @@ export default defineConfig({
   adapter: {
     name: "astro-payload",
     hooks: {
-      "astro:server:setup": async (astro) => {
+      "astro:server:setup": (astro) => {
         console.log("dev startup..");
-        await dev(astro);
+        dev(astro);
       },
       "astro:config:done": ({ setAdapter }) => {
         setAdapter({

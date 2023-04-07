@@ -1,5 +1,4 @@
 import express from "express";
-import http from "http";
 import { fileURLToPath } from "url";
 import { App } from "astro/app";
 import Fastify from "fastify";
@@ -34,6 +33,7 @@ function startPayload() {
       pass: process.env.DB_ROOT_PASS,
       dbName: process.env.DB_NAME,
     },
+    // @ts-ignore
     express: app,
     config: payloadConfig,
     onInit: () => {
@@ -44,7 +44,7 @@ function startPayload() {
   return app;
 }
 
-export async function dev(astro: { server: { httpServer: http.Server } }) {
+export async function dev(astro) {
   const app = express();
 
   const router = await startPayload();
