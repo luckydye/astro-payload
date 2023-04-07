@@ -14,6 +14,6 @@ export default buildConfig({
     outputFile: ".payload/payload-types.ts",
   },
   graphQL: {
-    schemaOutputFile: ".payload/generated-schema.graphql",
+    disable: true,
   },
 });

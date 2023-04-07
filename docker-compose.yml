@@ -1,27 +1,30 @@
 services:
-#  node:
-#    image: node:18-alpine
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - ./src:/home/node/app
-#    working_dir: /home/node/app/
-#    command: sh -c "npm run dev"
-#    depends_on:
-#      - db
-#    env_file:
-#      - ./src/.env
+  #  node:
+  #    image: node:18-alpine
+  #    ports:
+  #      - "3000:3000"
+  #    volumes:
+  #      - ./src:/home/node/app
+  #    working_dir: /home/node/app/
+  #    command: sh -c "npm run dev"
+  #    depends_on:
+  #      - db
+  #    env_file:
+  #      - ./src/.env
   db:
     image: mongo:latest
+    env_file: .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${DB_ROOT_USER}"
       MONGO_INITDB_ROOT_PASSWORD: "${DB_ROOT_PASS}"
-      MONGO_INITDB_ROOT_DATABASE: "${DB_NAME}"
     ports:
       - "27017:27017"
     volumes:
-      - ./data/db:/data/db
+      - data:/data/db
 
 networks:
   default:
     driver: "bridge"
+
+volumes:
+  data:
