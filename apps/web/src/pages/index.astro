@@ -18,7 +18,7 @@ const layout = page.layout;
 <Layout title={title}>
   <main class="container">
     <div class="content">
-      <RichText content={layout[0].richText} />
+      {layout.map((layout: any) => <RichText content={layout.richText} />)}
     </div>
   </main>
 </Layout>
