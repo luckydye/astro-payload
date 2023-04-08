@@ -1,8 +1,8 @@
 import { start, dev } from "./server";
 import vite from "vite";
-import { PayloadOptions } from "./types.ts";
+import { AdapterInitOptions } from "./types.ts";
 
-export default (options: PayloadOptions) => {
+export default (options: AdapterInitOptions) => {
 	return {
 		name: "@payload/astro",
 		hooks: {

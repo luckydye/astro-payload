@@ -21,7 +21,8 @@
 		}
 	},
 	"scripts": {
-		"build": "tsup --dts --format cjs,esm ./adapter.ts && tsup --dts --format cjs,esm ./server.ts"
+		"build": "tsup --dts --format cjs,esm ./adapter.ts && tsup --dts --format cjs,esm ./server.ts",
+		"build:w": "tsup --watch --dts --format cjs,esm ./adapter.ts & tsup --watch --dts --format cjs,esm ./server.ts"
 	},
 	"dependencies": {
 		"@fastify/express": "^2.3.0",

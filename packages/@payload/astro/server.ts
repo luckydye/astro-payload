@@ -1,3 +1,4 @@
+import path from "path";
 import fastifyExpress from "@fastify/express";
 import fastifyStatic from "@fastify/static";
 import { App } from "astro/app";
@@ -7,14 +8,17 @@ import http from "http";
 import payload from "payload";
 import { SanitizedConfig } from "payload/config";
 import { fileURLToPath } from "url";
-import { ExtendedSSRManifest, PayloadOptions } from "./types";
+import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
-async function getPayloadConfig(): Promise<SanitizedConfig> {
-	//@ts-ignore
-	return {};
+async function getPayloadConfig(payloadConfigPath?: string): Promise<SanitizedConfig> {
+	const basePath = path.resolve(".");
+	const configPath = basePath + "/" + payloadConfigPath || basePath + "/payload.config";
+	const payloadConfig = await import(/* @vite-ignore */ configPath);
+
+	return payloadConfig.default;
 }
 
-async function startPayload(config: PayloadOptions) {
+async function startPayload(config: AdapterInitOptions) {
 	const app = express.Router();
 
 	// Initialize Payload
@@ -24,7 +28,7 @@ async function startPayload(config: PayloadOptions) {
 		onInit: () => {
 			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
 		},
-		// config: getPayloadConfig(),
+		config: getPayloadConfig(config.configPath),
 		...config,
 	});
 
@@ -32,7 +36,7 @@ async function startPayload(config: PayloadOptions) {
 }
 
 // development server entry
-export async function dev(server: http.Server, payloadInitOptions: PayloadOptions) {
+export async function dev(server: http.Server, payloadInitOptions: AdapterInitOptions) {
 	const router = await startPayload(payloadInitOptions);
 
 	// use the astro server for both request handlers
@@ -53,9 +57,9 @@ export async function dev(server: http.Server, payloadInitOptions: PayloadOption
 
 // built server entry
 export async function start(manifest: ExtendedSSRManifest) {
-	const app = new App(manifest);
-
 	const server = Fastify({ logger: true });
+	const app = new App(manifest);
+	const payloadRouter = await startPayload(manifest.payloadInitOptions);
 
 	await server
 		.register(fastifyStatic, {
@@ -63,7 +67,6 @@ export async function start(manifest: ExtendedSSRManifest) {
 		})
 		.register(fastifyExpress);
 
-	const payloadRouter = await startPayload(manifest.payloadInitOptions);
 	server.use(payloadRouter);
 
 	server.use(async (req, res) => {
@@ -74,5 +77,5 @@ export async function start(manifest: ExtendedSSRManifest) {
 		}
 	});
 
-	server.listen({ host: process.env.HOST, port: +(process.env.PORT || 3000) });
+	server.listen({ host: process.env.HOST, port: +(process.env.PORT || 0) || undefined });
 }

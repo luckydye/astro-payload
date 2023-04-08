@@ -8,5 +8,5 @@ export type AdapterInitOptions = {
 export type PayloadOptions = (InitOptions & AdapterInitOptions) | Promise<InitOptions & AdapterInitOptions>;
 
 export interface ExtendedSSRManifest extends SSRManifest {
-	payloadInitOptions: PayloadOptions;
+	payloadInitOptions: AdapterInitOptions;
 }
