@@ -2,14 +2,10 @@
 	"name": "astro-payload",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "docker-compose up -d && dotenv -- npm run --workspace=web dev",
-		"build": "dotenv -- npm run --workspace=web build",
-		"serve": "dotenv -- npm run --workspace=web serve"
+		"dev": "docker-compose up -d && dotenv -- pnpm --filter=web dev",
+		"build": "dotenv -- pnpm --filter=web build",
+		"serve": "dotenv -- pnpm --filter=web serve"
 	},
-	"workspaces": [
-		"apps/**",
-		"pacakges/**"
-	],
 	"engines": {
 		"node": ">=18"
 	},

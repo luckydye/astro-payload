@@ -18,7 +18,7 @@ async function getPayloadConfig(payloadConfigPath?: string): Promise<SanitizedCo
 }
 
 async function startPayload(config: AdapterInitOptions) {
-	const app = express.Router();
+	const app = express();
 
 	// Initialize Payload
 	payload.init({
