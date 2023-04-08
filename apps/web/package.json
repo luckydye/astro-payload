@@ -3,7 +3,7 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "payload build && astro build && tsup ./payload.config.ts",
-		"serve": "PAYLOAD_CONFIG_PATH=dist/payload.config.js node ./dist/server/server.mjs"
+		"serve": "node ./dist/server/server.mjs"
 	},
 	"dependencies": {
 		"@payload/astro": "file:../../packages/@payload/astro",

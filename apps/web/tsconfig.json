@@ -12,6 +12,6 @@
 		"rootDir": ".",
 		"jsx": "react"
 	},
-	"include": ["src", "payload.config.ts"],
+	"include": ["src", "payload.config.ts", "src/env.d.ts"],
 	"exclude": ["node_modules", "dist", "build"]
 }

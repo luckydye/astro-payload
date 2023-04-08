@@ -3,19 +3,20 @@
 	"keywords": [
 		"astro-integration"
 	],
-	"types": "module",
+	"type": "module",
 	"main": "./adapter.ts",
+	"types": "./dist/adapter.d.ts",
 	"exports": {
 		".": {
-			"default": "./dist/adapter.mjs",
-			"import": "./dist/adapter.mjs",
-			"require": "./dist/adapter.js",
+			"default": "./dist/adapter.js",
+			"import": "./dist/adapter.js",
+			"require": "./dist/adapter.cjs",
 			"types": "./dist/adapter.d.ts"
 		},
 		"./server": {
-			"default": "./dist/server.mjs",
-			"import": "./dist/server.mjs",
-			"require": "./dist/server.js",
+			"default": "./dist/server.js",
+			"import": "./dist/server.js",
+			"require": "./dist/server.cjs",
 			"types": "./dist/server.d.ts"
 		}
 	},
