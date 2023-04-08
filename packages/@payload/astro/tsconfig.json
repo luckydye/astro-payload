@@ -5,13 +5,10 @@
 		"moduleResolution": "node",
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
-		"lib": ["dom", "dom.iterable", "esnext"],
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"rootDir": ".",
-		"jsx": "react"
+		"rootDir": "."
 	},
-	"include": ["src", "payload.config.ts"],
-	"exclude": ["node_modules", "dist", "build"]
+	"exclude": ["node_modules", "dist"]
 }

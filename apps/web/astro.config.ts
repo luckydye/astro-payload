@@ -1,30 +1,19 @@
 import { defineConfig } from "astro/config";
-import { start, dev } from "./server";
+import payload from "@payload/astro";
 
 export default defineConfig({
-  srcDir: "src",
-  output: "server",
-  build: {
-    serverEntry: "server.mjs",
-  },
-  adapter: {
-    name: "astro-payload",
-    hooks: {
-      "astro:server:setup": (astro) => {
-        console.log("dev startup..");
-        dev(astro);
-      },
-      "astro:config:done": ({ setAdapter }) => {
-        setAdapter({
-          name: "astro-payload",
-          serverEntrypoint: "./server.ts",
-        });
-      },
-    },
-  },
-  // vite: {
-  //   ssr: {
-  //     noExternal: ["path-to-regexp"],
-  //   },
-  // },
+	srcDir: "src",
+	output: "server",
+	build: {
+		serverEntry: "server.mjs",
+	},
+	adapter: payload({
+		secret: process.env.PAYLOAD_SECRET,
+		mongoURL: process.env.DB_URI,
+		mongoOptions: {
+			user: process.env.DB_ROOT_USER,
+			pass: process.env.DB_ROOT_PASS,
+			dbName: process.env.DB_NAME,
+		},
+	}),
 });

@@ -1,16 +1,19 @@
 {
-  "name": "astro-payload",
-  "version": "1.0.0",
-  "scripts": {
-    "predev": "docker-compose up -d",
-    "dev": "dotenv -- pnpm run -r --parallel dev",
-    "build": "dotenv -- pnpm run -r --parallel build",
-    "serve": "dotenv -- pnpm run -r --parallel serve"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "dotenv-cli": "^7.0.0"
-  }
+	"name": "astro-payload",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "docker-compose up -d && dotenv -- npm run --workspace=web dev",
+		"build": "dotenv -- npm run --workspace=web build",
+		"serve": "dotenv -- npm run --workspace=web serve"
+	},
+	"workspaces": [
+		"apps/**",
+		"pacakges/**"
+	],
+	"engines": {
+		"node": ">=18"
+	},
+	"dependencies": {
+		"dotenv-cli": "^7.0.0"
+	}
 }
