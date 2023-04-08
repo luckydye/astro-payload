@@ -3,9 +3,7 @@ import type { InitOptions } from "payload/config";
 
 export type AdapterInitOptions = {
 	configPath: string;
-};
-
-export type PayloadOptions = (InitOptions & AdapterInitOptions) | Promise<InitOptions & AdapterInitOptions>;
+} & InitOptions;
 
 export interface ExtendedSSRManifest extends SSRManifest {
 	payloadInitOptions: AdapterInitOptions;

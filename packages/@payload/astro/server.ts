@@ -7,7 +7,6 @@ import Fastify from "fastify";
 import http from "http";
 import payload from "payload";
 import { SanitizedConfig } from "payload/config";
-import { fileURLToPath } from "url";
 import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
 async function getPayloadConfig(payloadConfigPath?: string): Promise<SanitizedConfig> {
@@ -63,7 +62,7 @@ export async function start(manifest: ExtendedSSRManifest) {
 
 	await server
 		.register(fastifyStatic, {
-			root: fileURLToPath(new URL("../client", import.meta.url)),
+			root: "../client",
 		})
 		.register(fastifyExpress);
 
