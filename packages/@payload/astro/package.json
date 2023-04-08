@@ -9,16 +9,18 @@
 		".": {
 			"default": "./dist/adapter.mjs",
 			"import": "./dist/adapter.mjs",
-			"require": "./dist/adapter.js"
+			"require": "./dist/adapter.js",
+			"types": "./dist/adapter.d.ts"
 		},
 		"./server": {
 			"default": "./dist/server.mjs",
 			"import": "./dist/server.mjs",
-			"require": "./dist/server.js"
+			"require": "./dist/server.js",
+			"types": "./dist/server.d.ts"
 		}
 	},
 	"scripts": {
-		"build": "tsup --format cjs,esm ./adapter.ts && tsup --format cjs,esm ./server.ts"
+		"build": "tsup --dts --format cjs,esm ./adapter.ts && tsup --dts --format cjs,esm ./server.ts"
 	},
 	"dependencies": {
 		"@fastify/express": "^2.3.0",

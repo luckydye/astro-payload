@@ -10,6 +10,7 @@ import { fileURLToPath } from "url";
 import { ExtendedSSRManifest, PayloadOptions } from "./types";
 
 async function getPayloadConfig(): Promise<SanitizedConfig> {
+	//@ts-ignore
 	return {};
 }
 
