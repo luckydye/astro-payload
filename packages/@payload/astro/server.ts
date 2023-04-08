@@ -1,6 +1,5 @@
 import path from "path";
 import fastifyExpress from "@fastify/express";
-import fastifyStatic from "@fastify/static";
 import { App } from "astro/app";
 import express from "express";
 import Fastify from "fastify";
@@ -8,7 +7,7 @@ import http from "http";
 import payload from "payload";
 import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
-async function getPayloadConfig(payloadConfigPath?: string) {
+export async function getPayloadConfig(payloadConfigPath?: string) {
 	const configPath = path.resolve("./" + payloadConfigPath || "./payload.config");
 	const { default: payloadConfig } = await import(/* @vite-ignore */ configPath);
 
@@ -23,7 +22,7 @@ async function getPayloadConfig(payloadConfigPath?: string) {
 	throw new Error('Could not find payload config. Specify "configPath" in the payload adapter.');
 }
 
-async function startPayload(config: AdapterInitOptions) {
+export async function startPayload(config: AdapterInitOptions) {
 	const app = express();
 
 	// Initialize Payload
@@ -66,22 +65,20 @@ export async function start(manifest: ExtendedSSRManifest) {
 	const app = new App(manifest);
 	const payloadRouter = await startPayload(manifest.payloadInitOptions);
 
-	console.log("static", path.resolve("./client"), import.meta.url);
+	await server.register(fastifyExpress);
 
-	await server
-		.register(fastifyStatic, {
-			root: path.resolve("./dist/client"),
-		})
-		.register(fastifyExpress);
-
+	server.use(express.static("dist/client/"));
 	server.use(payloadRouter);
 
 	server.use(async (req, res) => {
 		const request = new Request("http://localhost:3000" + req.url);
+
 		if (app.match(request)) {
 			const response = await app.render(request);
-			return await response.text();
+			return res.status(response.status).send(await response.text());
 		}
+
+		return res.status(404).send("Not found");
 	});
 
 	server.listen({ host: process.env.HOST, port: +(process.env.PORT || 0) || undefined });
