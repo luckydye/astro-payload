@@ -6,15 +6,21 @@ import express from "express";
 import Fastify from "fastify";
 import http from "http";
 import payload from "payload";
-import { SanitizedConfig } from "payload/config";
 import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
-async function getPayloadConfig(payloadConfigPath?: string): Promise<SanitizedConfig> {
-	const basePath = path.resolve(".");
-	const configPath = basePath + "/" + payloadConfigPath || basePath + "/payload.config";
-	const payloadConfig = await import(/* @vite-ignore */ configPath);
+async function getPayloadConfig(payloadConfigPath?: string) {
+	const configPath = path.resolve("./" + payloadConfigPath || "./payload.config");
+	const { default: payloadConfig } = await import(/* @vite-ignore */ configPath);
 
-	return payloadConfig.default;
+	// validate config
+	if ("serverURL" in (await payloadConfig)) {
+		return payloadConfig;
+	} else if ("serverURL" in (await payloadConfig.default)) {
+		// support cjs import ?!
+		return payloadConfig.default;
+	}
+
+	throw new Error('Could not find payload config. Specify "configPath" in the payload adapter.');
 }
 
 async function startPayload(config: AdapterInitOptions) {
@@ -60,9 +66,11 @@ export async function start(manifest: ExtendedSSRManifest) {
 	const app = new App(manifest);
 	const payloadRouter = await startPayload(manifest.payloadInitOptions);
 
+	console.log("static", path.resolve("./client"), import.meta.url);
+
 	await server
 		.register(fastifyStatic, {
-			root: "../client",
+			root: path.resolve("./dist/client"),
 		})
 		.register(fastifyExpress);
 
