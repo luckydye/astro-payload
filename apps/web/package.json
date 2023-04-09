@@ -1,9 +1,9 @@
 {
 	"name": "web",
-	"type": "module",
+	"types": "module",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "payload build && astro build && tsup ./payload.config.ts",
+		"build": "payload build && astro build && tsup",
 		"serve": "node ./dist/server/server.mjs"
 	},
 	"dependencies": {
@@ -13,5 +13,14 @@
 	},
 	"devDependencies": {
 		"tsup": "^6.5.0"
+	},
+	"tsup": {
+		"entry": [
+			"./payload.config.ts",
+			"./payload.ts"
+		],
+		"format": [
+			"esm"
+		]
 	}
 }

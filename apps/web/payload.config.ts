@@ -1,4 +1,4 @@
-import { buildConfig } from "payload/config";
+import { buildConfig } from "payload/config.js";
 import TodoLists from "./src/collections/TodoLists";
 import Users from "./src/collections/Users";
 import Media from "./src/collections/Media";

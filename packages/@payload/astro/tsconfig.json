@@ -3,12 +3,13 @@
 		"target": "ES2022",
 		"module": "ES2022",
 		"moduleResolution": "node",
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
+		"noEmit": false,
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"rootDir": "."
+		"rootDir": ".",
+		"outDir": "dist"
 	},
+	"files": ["./server.ts", "./adapter.ts"],
 	"exclude": ["node_modules", "dist"]
 }

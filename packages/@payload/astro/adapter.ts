@@ -1,6 +1,6 @@
 import { start, dev } from "./server";
 import vite from "vite";
-import { AdapterInitOptions } from "./types.ts";
+import { AdapterInitOptions } from "./types";
 
 export default (options: AdapterInitOptions) => {
 	return {
@@ -14,7 +14,7 @@ export default (options: AdapterInitOptions) => {
 			"astro:config:done": ({ setAdapter }: any) => {
 				setAdapter({
 					name: "@payload/astro",
-					serverEntrypoint: options.serverEntry || "@payload/astro/server",
+					serverEntrypoint: "@payload/astro/server",
 				});
 			},
 			// @ts-ignore

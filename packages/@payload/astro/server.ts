@@ -7,6 +7,25 @@ import http from "http";
 import payload from "payload";
 import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
+export async function startPayload(server: http.Server, config: AdapterInitOptions) {
+	const app = express();
+
+	if (config.serverEntry) {
+		// custom payload server entry is configured
+		const { default: start } = await import(/* @vite-ignore */ path.resolve(config.serverEntry));
+		await start(server, app, config);
+	} else {
+		// initialize builtin payload
+		await payload.init({
+			express: app,
+			config: getPayloadConfig(config.configPath),
+			...config,
+		});
+	}
+
+	return app;
+}
+
 export async function getPayloadConfig(payloadConfigPath?: string) {
 	const configPath = path.resolve("./" + payloadConfigPath || "./payload.config");
 	const { default: payloadConfig } = await import(/* @vite-ignore */ configPath);
@@ -22,26 +41,9 @@ export async function getPayloadConfig(payloadConfigPath?: string) {
 	throw new Error('Could not find payload config. Specify "configPath" in the payload adapter.');
 }
 
-export async function startPayload(config: AdapterInitOptions) {
-	const app = express();
-
-	// Initialize Payload
-	payload.init({
-		// @ts-ignore
-		express: app,
-		onInit: () => {
-			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
-		},
-		config: getPayloadConfig(config.configPath),
-		...config,
-	});
-
-	return app;
-}
-
 // development server entry
 export async function dev(server: http.Server, payloadInitOptions: AdapterInitOptions) {
-	const router = await startPayload(payloadInitOptions);
+	const payloadRouter = await startPayload(server, payloadInitOptions);
 
 	// use the astro server for both request handlers
 	const listeners = server.listeners("request");
@@ -53,24 +55,23 @@ export async function dev(server: http.Server, payloadInitOptions: AdapterInitOp
 		const next = () => {
 			astroListener(req, res);
 		};
-
 		// @ts-ignore
-		router(req, res, next);
+		payloadRouter(req, res, next);
 	});
 }
 
 // built server entry
 export async function start(manifest: ExtendedSSRManifest) {
-	const server = Fastify({ logger: true });
+	const fastify = Fastify({ logger: true });
 	const app = new App(manifest);
-	const payloadRouter = await startPayload(manifest.payloadInitOptions);
+	const payloadRouter = await startPayload(fastify.server, manifest.payloadInitOptions);
 
-	await server.register(fastifyExpress);
+	await fastify.register(fastifyExpress);
 
-	server.use(express.static("dist/client/"));
-	server.use(payloadRouter);
+	fastify.use(express.static("dist/client/"));
+	fastify.use(payloadRouter);
 
-	server.use(async (req, res) => {
+	fastify.use(async (req, res) => {
 		const request = new Request("http://localhost:3000" + req.url);
 
 		if (app.match(request)) {
@@ -81,5 +82,5 @@ export async function start(manifest: ExtendedSSRManifest) {
 		return res.status(404).send("Not found");
 	});
 
-	server.listen({ host: process.env.HOST, port: +(process.env.PORT || 0) || undefined });
+	fastify.listen({ host: process.env.HOST, port: +(process.env.PORT || 0) || undefined });
 }
