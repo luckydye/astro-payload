@@ -4,9 +4,6 @@ import payload from "@luckydye/astro-payload";
 export default defineConfig({
 	srcDir: "src",
 	output: "server",
-	build: {
-		serverEntry: "server.mjs",
-	},
 	adapter: payload({
 		secret: process.env.PAYLOAD_SECRET || "",
 		mongoURL: process.env.DB_URI || "",

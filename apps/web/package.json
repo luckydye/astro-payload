@@ -1,10 +1,10 @@
 {
 	"name": "web",
-	"types": "module",
+	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "payload build && astro build && tsup",
-		"serve": "node ./dist/server/server.mjs"
+		"serve": "node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
 		"@luckydye/astro-payload": "0.0.2",

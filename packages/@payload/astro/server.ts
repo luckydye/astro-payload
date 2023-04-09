@@ -18,7 +18,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 		// initialize builtin payload
 		await payload.init({
 			express: app,
-			config: getPayloadConfig(config.configPath),
+			config: config.configPath ? getPayloadConfig(config.configPath) : undefined,
 			...config,
 		});
 	}
