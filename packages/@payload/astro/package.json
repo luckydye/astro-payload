@@ -1,34 +1,28 @@
 {
 	"name": "@luckydye/astro-payload",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"keywords": [
 		"astro-integration"
 	],
 	"type": "module",
-	"main": "./dist/esm/adapter.js",
+	"main": "./dist/adapter.js",
 	"types": "./adapter.ts",
 	"exports": {
 		".": {
-			"default": "./dist/esm/adapter.js",
-			"import": "./dist/esm/adapter.js",
-			"require": "./dist/cjs/adapter.js",
+			"default": "./dist/adapter.js",
+			"import": "./dist/adapter.js",
 			"types": "./adapter.ts"
 		},
 		"./server": {
-			"default": "./dist/esm/server.js",
-			"import": "./dist/esm/server.js",
-			"require": "./dist/cjs/server.js",
+			"default": "./dist/server.js",
+			"import": "./dist/server.js",
 			"types": "./server.ts"
-		}
+		},
+		"./adapter_ts": "./adapter.ts",
+		"./server_ts": "./server.ts"
 	},
 	"scripts": {
-		"build": "tsc --outDir dist/esm && tsc -m commonjs --outDir dist/cjs"
-	},
-	"tsup": {
-		"entry": [
-			"./server.ts",
-			"./adapter.ts"
-		]
+		"build": "tsc --outDir dist"
 	},
 	"dependencies": {
 		"fastify": "^4.15.0",
