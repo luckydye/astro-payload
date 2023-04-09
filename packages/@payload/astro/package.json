@@ -39,6 +39,10 @@
 			"src/server.ts",
 			"src/adapter.ts"
 		],
+		"format": [
+			"esm",
+			"cjs"
+		],
 		"dts": true
 	},
 	"files": [
