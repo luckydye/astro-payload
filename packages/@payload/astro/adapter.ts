@@ -1,6 +1,6 @@
-import { start, dev } from "./server";
+import { start, dev } from "./server.js";
 import vite from "vite";
-import { AdapterInitOptions } from "./types";
+import type { AdapterInitOptions } from "./types";
 
 const name = "@luckydye/astro-payload";
 

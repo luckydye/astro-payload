@@ -5,7 +5,7 @@ import express from "express";
 import Fastify from "fastify";
 import http from "http";
 import payload from "payload";
-import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
+import type { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
 export async function startPayload(server: http.Server, config: AdapterInitOptions) {
 	const app = express();
