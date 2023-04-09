@@ -2,9 +2,11 @@ import { start, dev } from "./server";
 import vite from "vite";
 import { AdapterInitOptions } from "./types";
 
+const name = "@luckydye/astro-payload";
+
 export default (options: AdapterInitOptions) => {
 	return {
-		name: "@payload/astro",
+		name,
 		hooks: {
 			"astro:server:setup": async ({ server }: { server: vite.ViteDevServer }) => {
 				if (server.httpServer) {
@@ -13,8 +15,8 @@ export default (options: AdapterInitOptions) => {
 			},
 			"astro:config:done": ({ setAdapter }: any) => {
 				setAdapter({
-					name: "@payload/astro",
-					serverEntrypoint: "@payload/astro/server",
+					name,
+					serverEntrypoint: name + "/server",
 				});
 			},
 			// @ts-ignore

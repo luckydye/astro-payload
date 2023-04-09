@@ -7,7 +7,7 @@
 		"serve": "node ./dist/server/server.mjs"
 	},
 	"dependencies": {
-		"@payload/astro": "workspace:^",
+		"@luckydye/astro-payload": "0.0.2",
 		"astro": "^2.2.0",
 		"payload": "^1.6.32"
 	},
