@@ -5,7 +5,7 @@ import express from "express";
 import Fastify from "fastify";
 import http from "http";
 import payload from "payload";
-import { AdapterInitOptions, ExtendedSSRManifest } from "./types";
+import type { AdapterInitOptions, ExtendedSSRManifest } from "./types";
 
 export async function startPayload(server: http.Server, config: AdapterInitOptions) {
 	const app = express();
@@ -18,7 +18,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 		// initialize builtin payload
 		await payload.init({
 			express: app,
-			config: getPayloadConfig(config.configPath),
+			config: config.configPath ? getPayloadConfig(config.configPath) : undefined,
 			...config,
 		});
 	}
