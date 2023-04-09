@@ -1,5 +1,6 @@
 {
-	"name": "@payload/astro",
+	"name": "@luckydye/astro-payload",
+	"version": "0.0.1",
 	"keywords": [
 		"astro-integration"
 	],
