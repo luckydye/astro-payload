@@ -1,24 +1,27 @@
 {
 	"name": "@luckydye/astro-payload",
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"keywords": [
 		"astro-integration"
 	],
+	"type": "module",
 	"main": "./dist/adapter.js",
+	"module": "./dist/adapter.js",
 	"types": "./src/adapter.ts",
 	"exports": {
 		".": {
-			"default": "./dist/adapter.js",
-			"types": "./src/adapter.ts"
+			"import": "./dist/adapter.js",
+			"require": "./dist/adapter.cjs",
+			"types": "./src/adapter.d.ts"
 		},
 		"./server": {
-			"default": "./dist/server.js",
-			"types": "./src/server.ts"
+			"import": "./dist/server.js",
+			"require": "./dist/server.cjs",
+			"types": "./src/server.d.ts"
 		}
 	},
 	"scripts": {
-		"build": "tsc",
-		"build:cjs": "tsc --p tsconfig.serer.json"
+		"build": "tsup"
 	},
 	"dependencies": {
 		"fastify": "^4.15.0",
@@ -28,11 +31,20 @@
 		"payload": "^1.6.32"
 	},
 	"devDependencies": {
-		"@types/express": "^4.17.17"
+		"@types/express": "^4.17.17",
+		"tsup": "^6.5.0"
+	},
+	"tsup": {
+		"entry": [
+			"src/server.ts",
+			"src/adapter.ts"
+		],
+		"dts": true
 	},
 	"files": [
 		"README.md",
 		"dist",
+		"src",
 		"adapter.ts",
 		"server.ts",
 		"types.ts"
