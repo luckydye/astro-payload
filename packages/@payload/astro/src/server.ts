@@ -12,7 +12,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 
 	if (config.serverEntry) {
 		// custom payload server entry is configured
-		const { default: start } = await require(/* @vite-ignore */ path.resolve(config.serverEntry));
+		const { default: start } = await import(/* @vite-ignore */ path.resolve(config.serverEntry));
 		await start(server, app, config);
 	} else {
 		// initialize builtin payload
@@ -29,7 +29,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 
 export async function getPayloadConfig(payloadConfigPath?: string) {
 	const configPath = path.resolve("./" + payloadConfigPath);
-	const { default: payloadConfig } = await require(/* @vite-ignore */ configPath);
+	const { default: payloadConfig } = await import(/* @vite-ignore */ configPath);
 
 	// validate config
 	if ("serverURL" in (await payloadConfig)) {
