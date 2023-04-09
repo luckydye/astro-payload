@@ -13,11 +13,16 @@ export default (options: AdapterInitOptions) => {
 					dev(server.httpServer, options);
 				}
 			},
-			"astro:config:done": ({ setAdapter }: any) => {
-				setAdapter({
-					name,
-					serverEntrypoint: name + "/server",
-				});
+			"astro:config:done": ({ config, setAdapter }: any) => {
+				if (config.output === "server") {
+					setAdapter({
+						name,
+						serverEntrypoint: name + "/server",
+					});
+				} else {
+					// TODO: handle static build?
+					throw new Error("Astro needs to be configured to \"output: 'server'\" for this integration to work.");
+				}
 			},
 			// @ts-ignore
 			"astro:build:ssr": ({ manifest }) => {
