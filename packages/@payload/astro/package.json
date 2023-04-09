@@ -1,5 +1,6 @@
 {
-	"name": "@payload/astro",
+	"name": "@luckydye/astro-payload",
+	"version": "0.0.7",
 	"keywords": [
 		"astro-integration"
 	],
@@ -45,5 +46,10 @@
 		"adapter.ts",
 		"server.ts",
 		"types.ts"
-	]
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/luckydye/astro-payload.git",
+		"directory": "packages/@payload/astro"
+	}
 }

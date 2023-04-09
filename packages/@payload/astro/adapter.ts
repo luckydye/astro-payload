@@ -2,7 +2,7 @@ import { start, dev } from "./server.js";
 import vite from "vite";
 import type { AdapterInitOptions } from "./types";
 
-const name = "@payload/astro";
+const name = "@luckydye/astro-payload";
 
 export default (options: AdapterInitOptions) => {
 	return {

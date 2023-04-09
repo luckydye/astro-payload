@@ -3,10 +3,10 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "payload build && astro build && tsup",
-		"serve": "node ./dist/server/server.mjs"
+		"serve": "node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
-		"@payload/astro": "workspace:^",
+		"@luckydye/astro-payload": "0.0.4",
 		"astro": "^2.2.0",
 		"payload": "^1.6.32"
 	},

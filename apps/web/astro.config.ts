@@ -1,12 +1,9 @@
 import { defineConfig } from "astro/config";
-import payload from "@payload/astro";
+import payload from "@luckydye/astro-payload";
 
 export default defineConfig({
 	srcDir: "src",
 	output: "server",
-	build: {
-		serverEntry: "server.mjs",
-	},
 	adapter: payload({
 		secret: process.env.PAYLOAD_SECRET || "",
 		mongoURL: process.env.DB_URI || "",
@@ -15,9 +12,6 @@ export default defineConfig({
 			pass: process.env.DB_ROOT_PASS,
 			dbName: process.env.DB_NAME,
 		},
-		configPath: import.meta.env.DEV ? "./payload.config.ts" : "./dist/payload.config.mjs",
-
-		// optional custom payload instance entry
-		serverEntry: import.meta.env.DEV ? "./payload.ts" : "./dist/payload.mjs",
+		configPath: import.meta.env.DEV ? "./payload.config.ts" : "./dist/payload.config.js",
 	}),
 });
