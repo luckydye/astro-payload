@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2022",
-		"module": "ES2022",
+		"module": "CommonJS",
 		"moduleResolution": "node",
 		"noEmit": false,
 		"strict": true,
@@ -10,6 +10,6 @@
 		"rootDir": "src",
 		"outDir": "dist"
 	},
-	"files": ["src/server.ts", "src/adapter.ts"],
+	"files": ["src/server.ts"],
 	"exclude": ["node_modules", "dist"]
 }

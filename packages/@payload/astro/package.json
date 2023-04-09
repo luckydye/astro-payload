@@ -4,25 +4,21 @@
 	"keywords": [
 		"astro-integration"
 	],
-	"type": "module",
 	"main": "./dist/adapter.js",
-	"types": "./adapter.ts",
+	"types": "./src/adapter.ts",
 	"exports": {
 		".": {
 			"default": "./dist/adapter.js",
-			"import": "./dist/adapter.js",
-			"types": "./adapter.ts"
+			"types": "./src/adapter.ts"
 		},
 		"./server": {
 			"default": "./dist/server.js",
-			"import": "./dist/server.js",
-			"types": "./server.ts"
-		},
-		"./adapter_ts": "./adapter.ts",
-		"./server_ts": "./server.ts"
+			"types": "./src/server.ts"
+		}
 	},
 	"scripts": {
-		"build": "tsc --outDir dist"
+		"build": "tsc",
+		"build:cjs": "tsc --p tsconfig.serer.json"
 	},
 	"dependencies": {
 		"fastify": "^4.15.0",
