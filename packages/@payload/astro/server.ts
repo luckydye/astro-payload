@@ -12,7 +12,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 
 	if (config.serverEntry) {
 		// custom payload server entry is configured
-		const { default: start } = await import(path.resolve(config.serverEntry));
+		const { default: start } = await import(/* @vite-ignore */ path.resolve(config.serverEntry));
 		await start(server, app, config);
 	} else {
 		// initialize builtin payload

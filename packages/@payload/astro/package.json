@@ -4,38 +4,30 @@
 		"astro-integration"
 	],
 	"type": "module",
-	"main": "./adapter.ts",
-	"types": "./dist/adapter.d.ts",
+	"main": "./dist/esm/adapter.js",
+	"types": "./adapter.ts",
 	"exports": {
 		".": {
-			"default": "./dist/adapter.js",
-			"import": "./dist/adapter.js",
-			"require": "./dist/adapter.cjs",
-			"types": "./dist/adapter.d.ts"
+			"default": "./dist/esm/adapter.js",
+			"import": "./dist/esm/adapter.js",
+			"require": "./dist/cjs/adapter.js",
+			"types": "./adapter.ts"
 		},
 		"./server": {
-			"default": "./dist/server.js",
-			"import": "./dist/server.js",
-			"require": "./dist/server.cjs",
-			"types": "./dist/server.d.ts"
+			"default": "./dist/esm/server.js",
+			"import": "./dist/esm/server.js",
+			"require": "./dist/cjs/server.js",
+			"types": "./server.ts"
 		}
 	},
 	"scripts": {
-		"build": "tsup",
-		"build:w": "tsup --watch"
+		"build": "tsc --outDir dist/esm && tsc -m commonjs --outDir dist/cjs"
 	},
 	"tsup": {
-		"clean": true,
 		"entry": [
 			"./server.ts",
 			"./adapter.ts"
-		],
-		"format": [
-			"esm",
-			"cjs"
-		],
-		"splitting": false,
-		"dts": true
+		]
 	},
 	"dependencies": {
 		"fastify": "^4.15.0",
@@ -45,7 +37,6 @@
 		"payload": "^1.6.32"
 	},
 	"devDependencies": {
-		"@types/express": "^4.17.17",
-		"tsup": "^6.5.0"
+		"@types/express": "^4.17.17"
 	}
 }

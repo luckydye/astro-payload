@@ -1,6 +1,6 @@
 import { start, dev } from "./server";
 import vite from "vite";
-import { AdapterInitOptions } from "./types.ts";
+import { AdapterInitOptions } from "./types";
 
 export default (options: AdapterInitOptions) => {
 	return {
