@@ -1,17 +1,8 @@
 {
+	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
 		"target": "ES2022",
-		"module": "ES2022",
-		"moduleResolution": "node",
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"rootDir": ".",
-		"jsx": "react"
-	},
-	"include": ["src", "payload.config.ts", "src/env.d.ts"],
-	"exclude": ["node_modules", "dist", "build"]
+		"module": "esnext",
+		"esModuleInterop": true
+	}
 }

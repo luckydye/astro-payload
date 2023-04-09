@@ -1,6 +1,5 @@
 {
 	"name": "web",
-	"types": "module",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "payload build && astro build && tsup",
