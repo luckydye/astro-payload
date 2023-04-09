@@ -7,7 +7,7 @@
 		"serve": "node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
-		"@luckydye/astro-payload": "0.0.2",
+		"@luckydye/astro-payload": "0.0.4",
 		"astro": "^2.2.0",
 		"payload": "^1.6.32"
 	},

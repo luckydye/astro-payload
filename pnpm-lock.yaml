@@ -11,7 +11,7 @@ importers:
   apps/web:
     dependencies:
       '@luckydye/astro-payload':
-        specifier: 0.0.2
+        specifier: 0.0.4
         version: link:../../packages/@payload/astro
       astro:
         specifier: ^2.2.0
