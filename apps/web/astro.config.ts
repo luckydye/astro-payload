@@ -15,6 +15,9 @@ export default defineConfig({
 			pass: process.env.DB_ROOT_PASS,
 			dbName: process.env.DB_NAME,
 		},
-		configPath: import.meta.env.DEV ? "./payload.config.ts" : "./dist/payload.config.cjs",
+		configPath: import.meta.env.DEV ? "./payload.config.ts" : "./dist/payload.config.mjs",
+
+		// optional custom payload instance entry
+		serverEntry: import.meta.env.DEV ? "./payload.ts" : "./dist/payload.mjs",
 	}),
 });

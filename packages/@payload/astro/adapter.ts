@@ -14,7 +14,7 @@ export default (options: AdapterInitOptions) => {
 			"astro:config:done": ({ setAdapter }: any) => {
 				setAdapter({
 					name: "@payload/astro",
-					serverEntrypoint: options.serverEntry || "@payload/astro/server",
+					serverEntrypoint: "@payload/astro/server",
 				});
 			},
 			// @ts-ignore
