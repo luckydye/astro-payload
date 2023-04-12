@@ -1,8 +1,22 @@
 {
 	"extends": "astro/tsconfigs/strict",
 	"compilerOptions": {
-		"target": "ES2022",
-		"module": "esnext",
-		"esModuleInterop": true
+		"target": "es5",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"outDir": "./dist",
+		"skipLibCheck": true,
+		"strict": false,
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"sourceMap": true
+	},
+	"include": ["src"],
+	"ts-node": {
+		"transpileOnly": true
 	}
 }
