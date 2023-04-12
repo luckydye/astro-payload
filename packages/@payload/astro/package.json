@@ -12,7 +12,7 @@
 		".": {
 			"import": "./dist/adapter.js",
 			"require": "./dist/adapter.cjs",
-			"types": "./src/adapter.d.ts"
+			"types": "./src/adapter.ts"
 		},
 		"./ts": {
 			"import": "./src/adapter.ts",
@@ -21,7 +21,7 @@
 		"./server": {
 			"import": "./dist/server.js",
 			"require": "./dist/server.cjs",
-			"types": "./src/server.d.ts"
+			"types": "./src/server.ts"
 		},
 		"./ts/server": {
 			"import": "./src/server.ts",

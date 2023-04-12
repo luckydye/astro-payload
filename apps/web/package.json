@@ -1,12 +1,13 @@
 {
 	"name": "web",
+	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "payload build && astro build && tsup",
 		"serve": "node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
-		"@luckydye/astro-payload": "0.0.11",
+		"@luckydye/astro-payload": "0.0.12",
 		"astro": "^2.2.0",
 		"payload": "^1.6.32"
 	},

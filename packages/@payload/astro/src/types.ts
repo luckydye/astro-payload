@@ -3,7 +3,7 @@ import type { InitOptions } from "payload/config.js";
 
 export type AdapterInitOptions = {
 	serverEntry?: string;
-	configPath?: string;
+	configPath: string;
 } & InitOptions;
 
 export interface ExtendedSSRManifest extends SSRManifest {
