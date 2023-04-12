@@ -7,9 +7,10 @@
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"rootDir": ".",
+		"removeComments": false,
+		"rootDir": "src",
 		"outDir": "dist"
 	},
-	"files": ["./server.ts", "./adapter.ts"],
+	"files": ["src/server.ts", "src/adapter.ts"],
 	"exclude": ["node_modules", "dist"]
 }

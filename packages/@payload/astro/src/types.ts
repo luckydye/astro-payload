@@ -1,5 +1,5 @@
 import { SSRManifest } from "astro";
-import type { InitOptions } from "payload/config";
+import type { InitOptions } from "payload/config.js";
 
 export type AdapterInitOptions = {
 	serverEntry?: string;

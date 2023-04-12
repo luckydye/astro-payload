@@ -1,6 +1,6 @@
-import { start, dev } from "./server.js";
-import vite from "vite";
-import type { AdapterInitOptions } from "./types";
+import type { ViteDevServer } from "vite";
+import type { AdapterInitOptions } from "./types.js";
+import { dev } from "./server.js";
 
 const name = "@luckydye/astro-payload";
 
@@ -8,7 +8,7 @@ export default (options: AdapterInitOptions) => {
 	return {
 		name,
 		hooks: {
-			"astro:server:setup": async ({ server }: { server: vite.ViteDevServer }) => {
+			"astro:server:setup": async ({ server }: { server: ViteDevServer }) => {
 				if (server.httpServer) {
 					dev(server.httpServer, options);
 				}

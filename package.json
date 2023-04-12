@@ -2,7 +2,7 @@
 	"name": "astro-payload",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "pnpm build:package && docker-compose up -d && dotenv -- pnpm --filter=web dev",
+		"dev": "docker-compose up -d && dotenv -- pnpm --filter=web dev",
 		"build:package": "dotenv -- pnpm --filter=@luckydye/astro-payload build",
 		"build": "pnpm build:package && dotenv -- pnpm --filter=web build",
 		"serve": "dotenv -- pnpm --filter=web serve"

@@ -4,8 +4,8 @@ import { App } from "astro/app";
 import express from "express";
 import Fastify from "fastify";
 import http from "http";
-import payload from "payload";
-import type { AdapterInitOptions, ExtendedSSRManifest } from "./types";
+import { default as payload } from "payload";
+import type { AdapterInitOptions, ExtendedSSRManifest } from "./types.js";
 
 export async function startPayload(server: http.Server, config: AdapterInitOptions) {
 	const app = express();
@@ -16,6 +16,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 		await start(server, app, config);
 	} else {
 		// initialize builtin payload
+		// @ts-ignore
 		await payload.init({
 			express: app,
 			config: config.configPath ? getPayloadConfig(config.configPath) : undefined,
@@ -27,7 +28,7 @@ export async function startPayload(server: http.Server, config: AdapterInitOptio
 }
 
 export async function getPayloadConfig(payloadConfigPath?: string) {
-	const configPath = path.resolve("./" + payloadConfigPath || "./payload.config");
+	const configPath = path.resolve("./" + payloadConfigPath);
 	const { default: payloadConfig } = await import(/* @vite-ignore */ configPath);
 
 	// validate config
