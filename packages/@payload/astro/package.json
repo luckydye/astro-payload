@@ -11,7 +11,6 @@
 	"exports": {
 		".": {
 			"import": "./dist/adapter.js",
-			"require": "./dist/adapter.cjs",
 			"types": "./src/adapter.ts"
 		},
 		"./ts": {
@@ -20,11 +19,6 @@
 		},
 		"./server": {
 			"import": "./dist/server.js",
-			"require": "./dist/server.cjs",
-			"types": "./src/server.ts"
-		},
-		"./ts/server": {
-			"import": "./src/server.ts",
 			"types": "./src/server.ts"
 		}
 	},
@@ -48,8 +42,7 @@
 			"src/adapter.ts"
 		],
 		"format": [
-			"esm",
-			"cjs"
+			"esm"
 		],
 		"dts": true
 	},

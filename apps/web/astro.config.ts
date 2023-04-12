@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import payload from "@luckydye/astro-payload/ts";
+import payload from "@luckydye/astro-payload";
 
 export default defineConfig({
 	srcDir: "src",
