@@ -7,16 +7,13 @@
 		"skipLibCheck": true,
 		"strict": false,
 		"esModuleInterop": true,
-		"module": "CommonJS",
-		"moduleResolution": "bundler",
+		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"sourceMap": true
+		"sourceMap": true,
+		"types": ["astro/client", "vite/client"]
 	},
-	"include": ["src"],
-	"ts-node": {
-		"transpileOnly": true
-	}
+	"include": ["src"]
 }

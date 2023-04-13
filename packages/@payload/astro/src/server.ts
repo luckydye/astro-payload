@@ -46,13 +46,13 @@ export async function dev(server: http.Server, payloadInitOptions: AdapterInitOp
 
 	// use the astro server for both request handlers
 	const listeners = server.listeners("request");
-	const astroListener = listeners[0];
+	const devListener = listeners[0];
 
 	// @ts-ignore
-	server.off("request", astroListener);
+	server.off("request", devListener);
 	server.on("request", (req, res) => {
 		const next = () => {
-			astroListener(req, res);
+			devListener(req, res);
 		};
 		// @ts-ignore
 		payloadRouter(req, res, next);
@@ -63,22 +63,33 @@ export async function dev(server: http.Server, payloadInitOptions: AdapterInitOp
 export async function start(manifest: ExtendedSSRManifest) {
 	const express = Express();
 	const app = new App(manifest);
-	const server = http.createServer(express);
-	const payloadRouter = await startPayload(server, manifest.payloadInitOptions);
+	const server = http.createServer();
 
-	express.use(Express.static("dist/client/"));
-	express.use(payloadRouter);
-
-	express.use(async (req, res) => {
+	server.on("request", express);
+	server.on("request", async (req, res) => {
 		const request = new Request("http://localhost:3000" + req.url);
 
 		if (app.match(request)) {
 			const response = await app.render(request);
-			return res.status(response.status).send(await response.text());
+
+			res.writeHead(response.status, {
+				"Content-Type": response.headers.get("Content-Type") || "text/plain",
+			});
+			res.end(await response.text());
+			return;
 		}
 
-		return res.status(404).send("Not found");
+		res.writeHead(404, {
+			"Content-Type": "text/plain",
+		});
+		res.end("Not found.");
+		return;
 	});
+
+	const payloadRouter = await startPayload(server, manifest.payloadInitOptions);
+
+	express.use(Express.static("dist/client/"));
+	express.use(payloadRouter);
 
 	server.listen(+(process.env.PORT || 0) || undefined, process.env.HOST);
 }
