@@ -7,6 +7,7 @@
 		"skipLibCheck": true,
 		"strict": false,
 		"esModuleInterop": true,
+		"module": "CommonJS",
 		"moduleResolution": "bundler",
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,

@@ -1,17 +1,17 @@
 {
 	"name": "web",
-	"type": "module",
 	"scripts": {
-		"dev": "astro dev",
-		"build": "payload build && astro build && tsup",
-		"serve": "node ./dist/server/entry.mjs"
+		"dev": "docker-compose up -d && dotenv -- astro dev",
+		"build": "dotenv -- payload build && astro build && tsup",
+		"serve": "dotenv -- node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
-		"@luckydye/astro-payload": "0.0.12",
+		"@luckydye/astro-payload": "link:/Users/tihav/source/luckydye/astro-payload/packages/@payload/astro",
 		"astro": "^2.2.0",
 		"payload": "^1.6.32"
 	},
 	"devDependencies": {
+		"dotenv-cli": "^7.2.1",
 		"tsup": "^6.5.0"
 	},
 	"tsup": {
@@ -22,5 +22,8 @@
 		"format": [
 			"esm"
 		]
+	},
+	"ts-node": {
+		"transpileOnly": true
 	}
 }

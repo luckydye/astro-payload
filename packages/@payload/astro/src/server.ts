@@ -1,14 +1,12 @@
 import path from "path";
-import fastifyExpress from "@fastify/express";
 import { App } from "astro/app";
-import express from "express";
-import Fastify from "fastify";
+import Express from "express";
 import http from "http";
 import { default as payload } from "payload";
 import type { AdapterInitOptions, ExtendedSSRManifest } from "./types.js";
 
 export async function startPayload(server: http.Server, config: AdapterInitOptions) {
-	const app = express();
+	const app = Express();
 
 	if (config.serverEntry) {
 		// custom payload server entry is configured
@@ -63,16 +61,15 @@ export async function dev(server: http.Server, payloadInitOptions: AdapterInitOp
 
 // built server entry
 export async function start(manifest: ExtendedSSRManifest) {
-	const fastify = Fastify({ logger: true });
+	const express = Express();
 	const app = new App(manifest);
-	const payloadRouter = await startPayload(fastify.server, manifest.payloadInitOptions);
+	const server = http.createServer(express);
+	const payloadRouter = await startPayload(server, manifest.payloadInitOptions);
 
-	await fastify.register(fastifyExpress);
+	express.use(Express.static("dist/client/"));
+	express.use(payloadRouter);
 
-	fastify.use(express.static("dist/client/"));
-	fastify.use(payloadRouter);
-
-	fastify.use(async (req, res) => {
+	express.use(async (req, res) => {
 		const request = new Request("http://localhost:3000" + req.url);
 
 		if (app.match(request)) {
@@ -83,5 +80,5 @@ export async function start(manifest: ExtendedSSRManifest) {
 		return res.status(404).send("Not found");
 	});
 
-	fastify.listen({ host: process.env.HOST, port: +(process.env.PORT || 0) || undefined });
+	server.listen(+(process.env.PORT || 0) || undefined, process.env.HOST);
 }
