@@ -16,6 +16,7 @@ async function startPayload() {
 		express: app,
 		config: payloadConfig,
 	});
+	// starting payload on a different port
 	app.listen(process.env.PAYLOAD_PORT);
 }
 
