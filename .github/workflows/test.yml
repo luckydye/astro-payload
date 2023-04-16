@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   install:
@@ -19,9 +19,9 @@ jobs:
         with:
           version: 8.1.0
           run_install: false
-          
+
       - name: Install dependencies
-        run: pnpm install
-          
+        run: cd apps/web && pnpm install
+
       - name: Build
-        run: pnpm build
+        run: cd apps/web && pnpm build
