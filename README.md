@@ -9,7 +9,7 @@ This project uses pnpm and docker-compose for the mongo database.
 
 1. cd into apps/web
 
-2. Create a `.env` file from the `.env.example` template file.
+2. Create a `.env` file from the `.env.prod` template.
 
 3. Run `pnpm i`
 
