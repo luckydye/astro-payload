@@ -1,6 +1,6 @@
 {
 	"name": "@luckydye/astro-payload",
-	"version": "0.0.16",
+	"version": "0.0.17",
 	"keywords": [
 		"astro-integration"
 	],
@@ -13,13 +13,9 @@
 		"build:w": "tsc --watch"
 	},
 	"dependencies": {
-		"astro": "^2.2.0",
-		"express": "^4.18.2",
-		"payload": "^1.6.32"
+		"astro": "^2.2.0"
 	},
 	"devDependencies": {
-		"vite": "^4.2.1",
-		"@types/express": "^4.17.17",
 		"typescript": "^5.0.4"
 	},
 	"files": [
