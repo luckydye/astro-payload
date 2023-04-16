@@ -1,20 +1,21 @@
 # Astro website with Payload CMS template
 
-Astro SSR as the frontend, served by a fastify server.
-Payload CMS run on the same process and also served by the same fastify server.
+Payload CMS runs on the same process as astro to enable the usage of payload's local api.
 
 
 ## Setup
 
 This project uses pnpm and docker-compose for the mongo database.
 
-Create a `.env` file from the `.env.example` template file.
+1. cd into apps/web
 
-Run `pnpm i`
+2. Create a `.env` file from the `.env.example` template file.
 
-Then `pnpm dev` to start the development server.
+3. Run `pnpm i`
+
+4. Then `pnpm dev` to start the development server.
 
 
 ## Build
 
-`pnpm build` to build full app.
+`pnpm build` to build and `pnpm serve` to start a preview server.

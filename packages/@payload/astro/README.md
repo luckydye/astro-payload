@@ -1,22 +1,14 @@
-# Astro adapter for Payload CMS
+# Astro integration for Payload CMS
+
+This integration creates a SSR route for the payload cms with the node adapter even in dev mode.
+
+Example project: https://github.com/luckydye/astro-payload/tree/main/apps/web
 
 ## Options
 ```typescript
 interface Options {
-	// payload init options
-    secret: string;
-	mongoURL: string | false;
-    mongoOptions?: {
-		user?: string;
-		pass?: string;
-		dbName?: string;
-	};
-
-	// optionally provide payload config path here
-	configPath?: string;
-
-	// custom payload instance entry file
-	serverEntry?: string;
+	// entry file path for the payload route
+	payloadRoute: string;
 }
 ```
 
@@ -24,10 +16,35 @@ interface Options {
 
 ```typescript
 // /astro.config.ts
+import { defineConfig } from "astro/config";
+import payload from "@luckydye/astro-payload";
+import node from "@astrojs/node";
+
+// https://astro.build/config
 export default defineConfig({
 	srcDir: "src",
 	output: "server",
-	adapter: payload({
+	adapter: node({
+		mode: "standalone",
+	}),
+	integrations: [
+		payload({
+			payloadRoute: "./payload.ts",
+		}),
+	],
+});
+```
+
+```typescript
+// ./payload.ts
+import payload from "payload";
+import payloadConfig from "./payload.config";
+import express from "express";
+import type { APIRoute } from "astro";
+
+async function startPayload() {
+	const app = express();
+	await payload.init({
 		secret: process.env.PAYLOAD_SECRET || "",
 		mongoURL: process.env.DB_URI || "",
 		mongoOptions: {
@@ -35,33 +52,20 @@ export default defineConfig({
 			pass: process.env.DB_ROOT_PASS,
 			dbName: process.env.DB_NAME,
 		},
-		configPath: import.meta.env.DEV ? "./payload.config.ts" : "./dist/payload.config.js",
-	}),
-});
-```
+		express: app,
+		config: payloadConfig,
+	});
+	// starting payload on a different port
+	app.listen(process.env.PAYLOAD_PORT);
+}
 
-## How to use your own payload instance
-```typescript
-// /payload.ts
-import payload from "payload";
-import { getPayloadConfig } from "@payload/astro/server";
+const payloadServer = startPayload();
 
-export default async (server, express, config) => {
-	await payload.init({
-		express, // required
-		config: getPayloadConfig(config.configPath), // optional
-		...config, // optional
+export const all: APIRoute = async () => {
+	await payloadServer;
+
+	return new Response(null, {
+		status: 404,
 	});
 };
-```
-
-```typescript
-// /astro.config.ts
-export default defineConfig({
-	...
-	adapter: payload({
-		...
-		serverEntry: import.meta.env.DEV ? "./payload.ts" : "./dist/payload.mjs",
-	}),
-});
 ```
