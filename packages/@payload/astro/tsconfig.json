@@ -10,6 +10,6 @@
 		"rootDir": ".",
 		"outDir": "."
 	},
-	"files": ["adapter.ts"],
+	"files": ["main.ts"],
 	"exclude": ["node_modules", "dist"]
 }
