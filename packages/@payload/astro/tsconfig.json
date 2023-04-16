@@ -7,9 +7,9 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"removeComments": false,
-		"rootDir": "src",
-		"outDir": "dist"
+		"rootDir": ".",
+		"outDir": "."
 	},
-	"files": ["src/server.ts", "src/adapter.ts"],
+	"files": ["adapter.ts"],
 	"exclude": ["node_modules", "dist"]
 }
