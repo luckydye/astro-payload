@@ -2,82 +2,91 @@
 import payload from "payload";
 
 export interface Props {
-  content: any[];
+	content: any[];
 }
 
 const { content } = Astro.props;
 
 const serialize = async (children: any[]) => {
-  if (!children) return;
+	if (!children) return;
 
-  return Promise.all(
-    children.map(async (node, i) => {
-      if ("text" in node) {
-        let text = `${node.text}`;
+	return Promise.all(
+		children.map(async (node, i) => {
+			if ("text" in node) {
+				let text = `${node.text}`;
 
-        if (node.bold) {
-          text = `<strong>${text}</strong>`;
-        }
+				if (node.underline) {
+					text = `<stroke>${text}</stroke>`;
+				}
 
-        if (node.code) {
-          text = `<code>${text}</code>`;
-        }
+				if (node.bold) {
+					text = `<strong>${text}</strong>`;
+				}
 
-        if (node.italic) {
-          text = `<em>${text}</em>`;
-        }
+				if (node.code) {
+					text = `<code>${text}</code>`;
+				}
 
-        return text;
-      }
+				if (node.italic) {
+					text = `<em>${text}</em>`;
+				}
 
-      if (!node) {
-        return null;
-      }
+				return text;
+			}
 
-      const children = await serialize(node.children);
+			if (!node) {
+				return null;
+			}
 
-      switch (node.type) {
-        case "h1":
-          return `<h1>${children}</h1>`;
-        case "h2":
-          return `<h2>${children}</h2>`;
-        case "h3":
-          return `<h3>${children}</h3>`;
-        case "h4":
-          return `<h4>${children}</h4>`;
-        case "quote":
-          return `<blockquote>${children}</blockquote>`;
-        case "ul":
-          return `<ul>${children}</ul>`;
-        case "ol":
-          return `<ol>${children}</ol>`;
-        case "li":
-          return `<li>${children}</li>`;
-        case "link":
-          return `<a href="${node.url}"">${children}</a>`;
-        case "upload":
-          const img = await payload.findByID({
-            collection: "uploads",
-            id: node.value.id,
-          });
-          return `<div class="upload"><img src="${img.sizes.resized.url || img.url}" /></div>`;
-        default:
-          return `<p>${children.length === 0 ? "<br/>" : children}</p>`;
-      }
-    })
-  ).then((all) => all.join(""));
+			const children = await serialize(node.children);
+
+			switch (node.type) {
+				case "h1":
+					return `<h1>${children}</h1>`;
+				case "h2":
+					return `<h2>${children}</h2>`;
+				case "h3":
+					return `<h3>${children}</h3>`;
+				case "h4":
+					return `<h4>${children}</h4>`;
+				case "quote":
+					return `<blockquote>${children}</blockquote>`;
+				case "ul":
+					return `<ul>${children}</ul>`;
+				case "ol":
+					return `<ol>${children}</ol>`;
+				case "li":
+					return `<li>${children}</li>`;
+				case "link":
+					return `<a href="${node.url}"">${children}</a>`;
+				case "upload":
+					const img = await payload
+						.findByID({
+							collection: "media",
+							id: node.value.id,
+						})
+						.catch((err) => {
+							console.error(err);
+						});
+					return `<div class="upload"><img src="${img.url}" width="${img.width}px" height="${img.height}px" /></div>`;
+				default:
+					return `<p>${children.length === 0 ? "<br/>" : children}</p>`;
+			}
+		})
+	).then((all) => all.join(""));
 };
 ---
 
 <style is:global>
-  .upload {
-    margin: 10px -20px;
-    width: calc(100% + 40px);
-  }
+	.upload {
+		margin: 10px -20px;
+		width: calc(100% + 40px);
+	}
 
-  .upload img {
-    width: 100%;
-  }
+	.upload img {
+		width: 100%;
+		height: auto;
+	}
 </style>
 
 <div class="rich-text" set:html={await serialize(content)} />

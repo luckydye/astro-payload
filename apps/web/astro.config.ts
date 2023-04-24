@@ -15,4 +15,9 @@ export default defineConfig({
 			payloadRoute: "./payload.ts",
 		}),
 	],
+	vite: {
+		optimizeDeps: {
+			exclude: ["payload"],
+		},
+	},
 });

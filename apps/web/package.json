@@ -3,8 +3,9 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "docker-compose up -d && dotenv -- astro dev",
+		"types": "payload generate:types",
 		"build": "dotenv -- payload build && astro build && tsup",
-		"serve": "PAYLOAD_CONFIG_PATH=./dist/payload.config.mjs dotenv -- node ./dist/server/entry.mjs"
+		"start": "PAYLOAD_CONFIG_PATH=./dist/payload.config.mjs dotenv -- node ./dist/server/entry.mjs"
 	},
 	"dependencies": {
 		"@luckydye/astro-payload": "file:../../packages/@payload/astro",

@@ -4,11 +4,12 @@ import RichText from "../components/RichText.astro";
 import payload from "payload";
 
 const ca = await payload.find({
-  collection: "pages",
+	collection: "pages",
+	draft: false,
 });
 
 const page = ca.docs.find((p) => {
-  return p.slug === "/";
+	return p.slug === "/";
 });
 
 const title = page.title;
@@ -16,9 +17,9 @@ const layout = page.layout;
 ---
 
 <Layout title={title}>
-  <main class="container">
-    <div class="content">
-      {layout.map((layout: any) => <RichText content={layout.richText} />)}
-    </div>
-  </main>
+	<main class="container">
+		<div class="content">
+			{layout.map((layout: any) => <RichText content={layout.richText} />)}
+		</div>
+	</main>
 </Layout>

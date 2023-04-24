@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload/types";
+import { createCollection } from "../hooks/createCollection";
 
-const Users: CollectionConfig = {
+const Users: CollectionConfig = createCollection({
 	slug: "users",
 	auth: true,
 	admin: {
@@ -13,6 +14,6 @@ const Users: CollectionConfig = {
 		// Email added by default
 		// Add more fields as needed
 	],
-};
+});
 
 export default Users;

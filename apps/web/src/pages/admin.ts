@@ -1,7 +1,6 @@
 import payload from "payload";
-import payloadConfig from "./payload.config";
+import payloadConfig from "../../payload.config";
 import express from "express";
-import type { APIRoute } from "astro";
 
 async function startPayload() {
 	const app = express();
@@ -22,10 +21,10 @@ async function startPayload() {
 
 const payloadServer = startPayload();
 
-export const all: APIRoute = async () => {
+export async function get() {
 	await payloadServer;
 
 	return new Response(null, {
 		status: 404,
 	});
-};
+}

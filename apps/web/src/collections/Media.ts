@@ -1,11 +1,15 @@
 import type { CollectionConfig } from "payload/types";
+import { createCollection } from "../hooks/createCollection";
 
-const Media: CollectionConfig = {
+const Media: CollectionConfig = createCollection({
 	slug: "media",
+	access: {
+		read: () => true,
+	},
 	fields: [],
 	upload: {
 		staticURL: "/media",
-		staticDir: "../../data/media",
+		staticDir: "./data/media",
 		imageSizes: [
 			{
 				name: "thumbnail",
@@ -29,6 +33,6 @@ const Media: CollectionConfig = {
 		adminThumbnail: "thumbnail",
 		mimeTypes: ["image/*"],
 	},
-};
+});
 
 export default Media;

@@ -1,10 +1,14 @@
 import type { CollectionConfig } from "payload/types";
 import Content from "../blocks/Content";
+import { createCollection } from "../hooks/createCollection";
 
-const Pages: CollectionConfig = {
+const Pages: CollectionConfig = createCollection({
 	slug: "pages",
 	versions: {
 		drafts: true,
+	},
+	access: {
+		read: () => true,
 	},
 	fields: [
 		{
@@ -34,6 +38,6 @@ const Pages: CollectionConfig = {
 			],
 		},
 	],
-};
+});
 
 export default Pages;

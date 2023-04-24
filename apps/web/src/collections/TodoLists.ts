@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload/types";
+import { createCollection } from "../hooks/createCollection";
 
-const Todo: CollectionConfig = {
+const Todo: CollectionConfig = createCollection({
 	slug: "todos",
 	admin: {
 		defaultColumns: ["listName", "tasks", "updatedAt"],
@@ -33,6 +34,6 @@ const Todo: CollectionConfig = {
 			],
 		},
 	],
-};
+});
 
 export default Todo;
